@@ -2,19 +2,17 @@ package main_window.components;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import main_window.logic.FileOperation;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 
 @Getter
 @NoArgsConstructor
 public class FileChooser {
     private JFileChooser fileChooser;
-    private File selectedFile;
+    private FileOperation fileOperation;
 
     public void actionListener() {
         this.fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -25,7 +23,8 @@ public class FileChooser {
         int read = this.fileChooser.showOpenDialog(null);
 
         if(read == JFileChooser.APPROVE_OPTION) {
-            this.selectedFile = this.fileChooser.getSelectedFile();
+            fileOperation = new FileOperation(this.fileChooser.getSelectedFile());
+            fileOperation.saveText();
         }
     }
 }

@@ -1,7 +1,6 @@
 import main_window.components.FileChooser;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,7 +18,12 @@ public class MainWindow extends JFrame implements ActionListener {
         fileDialogBtn.addActionListener(window);
 
         JTextArea addTextArea = new JTextArea("Add some text to the tree", 3, 10);
-        JButton addTextBtn = new JButton("Add text");
+        JButton addTextBtn = new JButton("Add");
+
+        JTextField searchWordText = new JTextField("Search the word");
+        JButton searchWordBtn = new JButton("Search");
+
+        // TreeComponent treeComponent = new TreeComponent();
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -27,6 +31,9 @@ public class MainWindow extends JFrame implements ActionListener {
         panel.add(fileDialogBtn);
         panel.add(addTextArea);
         panel.add(addTextBtn);
+        panel.add(searchWordText);
+        panel.add(searchWordBtn);
+        // panel.add(treeComponent.getTree());
 
         frame.add(panel);
 
