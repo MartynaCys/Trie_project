@@ -1,5 +1,41 @@
-public class MainWindow {
-    public static void main(String[] args) {
+import main_window.components.FileChooser;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MainWindow extends JFrame implements ActionListener {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setTitle("Main Window");
+        frame.setSize(500, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        MainWindow window = new MainWindow();
+
+        JButton fileDialogBtn = new JButton("Select File");
+        fileDialogBtn.addActionListener(window);
+
+        JTextArea addTextArea = new JTextArea("Add some text to the tree", 3, 10);
+        JButton addTextBtn = new JButton("Add text");
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        panel.add(fileDialogBtn);
+        panel.add(addTextArea);
+        panel.add(addTextBtn);
+
+        frame.add(panel);
+
+        frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.actionListener();
     }
 }
