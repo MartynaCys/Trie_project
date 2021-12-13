@@ -1,5 +1,7 @@
 package main_window.logic;
 
+import lombok.Getter;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
 public class FileOperation {
     private final File selectedFile;
     private List<String> words;
@@ -31,10 +34,9 @@ public class FileOperation {
                e.printStackTrace();
            }
         }
-        // System.out.println(splitInCharacters(this.words.get(0)).toString());
     }
 
-    public List<Character> splitInCharacters(String word) {
+    public static List<Character> splitInCharacters(String word) {
         List<Character> characters = new ArrayList<>();
         for (char ch: word.toCharArray()) {
             characters.add(ch);

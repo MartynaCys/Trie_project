@@ -18,6 +18,7 @@ public class MainWindow extends JFrame {
         fileDialogBtn.addActionListener(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.actionListener();
+            treeComponent.addText(fileChooser.getFileOperation().getWords());
         });
 
         JTextArea addTextArea = new JTextArea("Add some text to the tree", 3, 10);
