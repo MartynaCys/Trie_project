@@ -2,6 +2,7 @@ import main_window.components.FileChooser;
 import main_window.components.TreeComponent;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class MainWindow extends JFrame {
 
