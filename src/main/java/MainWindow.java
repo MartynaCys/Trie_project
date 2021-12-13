@@ -13,7 +13,6 @@ public class MainWindow extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         TreeComponent treeComponent = new TreeComponent();
-        System.out.println(treeComponent.checkIfTreeEmpty());
 
         JButton fileDialogBtn = new JButton("Select File");
         fileDialogBtn.addActionListener(e -> {

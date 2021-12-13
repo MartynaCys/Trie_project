@@ -21,31 +21,13 @@ public class TreeComponent {
         this.tree = new JTree(root);
     }
 
-    public boolean checkIfTreeEmpty() {
-        // 1 because of root
-        return this.tree.getRowCount() == 1;
-    }
-
     public void addText(List<String> words) {
-        boolean empty = checkIfTreeEmpty();
-        if(empty) {
-            addWord(words.get(0), this.root);        // pamietac pozniej sprawdzic czy lista slow moze byc pusta
-        }
-        for(int i = 1; i < words.size(); i++) {
-            searchWord(words.get(i), this.root);
-            // addWord(words.get(i), );
-        }
-
-    }
-
-    public void addWord(String word, DefaultMutableTreeNode node) {
-        List<Character> characters = FileOperation.splitInCharacters(word);
-        for(char ch: characters) {
-            node = addNode(ch, false, node);
+        for (int i = 0; i < words.size(); i++) {
+            addWord(words.get(i), this.root);
         }
     }
 
-    public DefaultMutableTreeNode addNode(char letter, boolean check, DefaultMutableTreeNode node) {
+    public DefaultMutableTreeNode createNode(char letter, DefaultMutableTreeNode node) {
         DefaultTreeModel model = (DefaultTreeModel) this.tree.getModel();
         DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(letter);
 
@@ -56,48 +38,37 @@ public class TreeComponent {
         return newNode;
     }
 
-    public void searchWord(String word, DefaultMutableTreeNode node) {
+    public void addWord(String word, DefaultMutableTreeNode node) {
         List<Character> characters = FileOperation.splitInCharacters(word);
-
-        DefaultMutableTreeNode returnNode = searchNode(node, characters, 0);
+        addNode(node, characters, 0);
     }
 
-    public DefaultMutableTreeNode searchNode(DefaultMutableTreeNode node, List<Character> characters, int i) {
-        Enumeration<TreeNode> enumeration = node.depthFirstEnumeration();
-        boolean flag = false;
+    public void addNode(DefaultMutableTreeNode node, List<Character> characters, int letterIndex) {
+        final char letter = characters.get(letterIndex);
+        Enumeration<TreeNode> enumeration = node.children();
+        boolean foundChild = false;
         while (enumeration.hasMoreElements()) {
-                System.out.println("I'm in while loop");
-            DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) enumeration.nextElement();
-                System.out.println("Character = " + characters.get(i));
-                System.out.println("Current node = " + currentNode.toString());
-            if ((String.valueOf(characters.get(i))).equals(currentNode.toString())) {
-                System.out.println("There is equality");
-                flag = true;
-                if (i + 1 < characters.size()) {
-                    System.out.println("Size is ok");
-                    if (currentNode.children() != null) {
-                        //searchNode2(currentNode.)
-                        System.out.println("Node has children");
-                    } else {
-                        StringBuilder word = new StringBuilder();
-                        for (int j = i; j < characters.size(); j++) {
-                            word.append(characters.get(j));
-                        }
-                        System.out.println("End of the word = " + word);
-                        addWord(word.toString(), currentNode);
-                    }
+                DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) enumeration.nextElement();
+            if ((String.valueOf(letter)).equals(currentNode.toString())) {
+                foundChild = true;
+
+                if (letterIndex < characters.size() - 1) {
+                    addNode(currentNode, characters, letterIndex + 1);
                 }
-                return currentNode.getNextNode();
             }
         }
-        if(!flag) {
-            StringBuilder word = new StringBuilder();
-            for(char ch: characters) {
-                word.append(ch);
+
+        if(!foundChild){
+              DefaultMutableTreeNode newNode = createNode(letter, node);
+
+            if (letterIndex < characters.size() - 1) {
+                addNode(newNode, characters, letterIndex + 1);
+                // dodac ostatni node jako koniec slowa, jako else lub kazda mozliwa wariacja przy przeszukiwaniu
             }
-            System.out.println("Adding word = " + word);
-            addWord(word.toString(), this.root);
         }
-        return null;
+    }
+
+    public void searchWord() {
+
     }
 }
