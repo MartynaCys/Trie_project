@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,5 +31,14 @@ public class FileOperation {
                e.printStackTrace();
            }
         }
+        // System.out.println(splitInCharacters(this.words.get(0)).toString());
+    }
+
+    public List<Character> splitInCharacters(String word) {
+        List<Character> characters = new ArrayList<>();
+        for (char ch: word.toCharArray()) {
+            characters.add(ch);
+        }
+        return characters;
     }
 }

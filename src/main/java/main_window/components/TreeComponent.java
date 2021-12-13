@@ -10,10 +10,15 @@ public class TreeComponent {
     private JTree tree;
 
     public TreeComponent() {
-        DefaultMutableTreeNode style = new DefaultMutableTreeNode("Style");
-        DefaultMutableTreeNode color = new DefaultMutableTreeNode("color");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode(" ");
 
-        style.add(color);
-        this.tree = new JTree(style);
+        this.tree = new JTree(root);
     }
+
+    public boolean checkIfTreeEmpty() {
+        // 1 because of root
+        return this.tree.getRowCount() == 1;
+    }
+
+    
 }

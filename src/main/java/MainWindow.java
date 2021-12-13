@@ -1,10 +1,9 @@
 import main_window.components.FileChooser;
+import main_window.components.TreeComponent;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class MainWindow extends JFrame implements ActionListener {
+public class MainWindow extends JFrame {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
@@ -12,18 +11,26 @@ public class MainWindow extends JFrame implements ActionListener {
         frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        MainWindow window = new MainWindow();
+        TreeComponent treeComponent = new TreeComponent();
+        System.out.println(treeComponent.checkIfTreeEmpty());
 
         JButton fileDialogBtn = new JButton("Select File");
-        fileDialogBtn.addActionListener(window);
+        fileDialogBtn.addActionListener(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.actionListener();
+        });
 
         JTextArea addTextArea = new JTextArea("Add some text to the tree", 3, 10);
         JButton addTextBtn = new JButton("Add");
+        addTextBtn.addActionListener(e -> {
+            System.out.println("adding");
+        });
 
         JTextField searchWordText = new JTextField("Search the word");
         JButton searchWordBtn = new JButton("Search");
-
-        // TreeComponent treeComponent = new TreeComponent();
+        searchWordBtn.addActionListener(e -> {
+            System.out.println("searching");
+        });
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -33,16 +40,10 @@ public class MainWindow extends JFrame implements ActionListener {
         panel.add(addTextBtn);
         panel.add(searchWordText);
         panel.add(searchWordBtn);
-        // panel.add(treeComponent.getTree());
+        panel.add(treeComponent.getTree());
 
         frame.add(panel);
 
         frame.setVisible(true);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.actionListener();
     }
 }
