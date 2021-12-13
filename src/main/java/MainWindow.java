@@ -37,7 +37,7 @@ public class MainWindow extends JFrame {
         JButton searchWordBtn = new JButton("Search");
         searchWordBtn.addActionListener(e -> {
             boolean answer = treeComponent.searchWord(searchWordText.getText());
-            System.out.println("answer = " + answer);
+            System.out.println("For word: " + searchWordText.getText() + " answer is = " + answer);
         });
 
         JPanel panel = new JPanel();

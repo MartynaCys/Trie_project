@@ -75,20 +75,16 @@ public class TreeComponent {
     public boolean searchNode(DefaultMutableTreeNode node, List<Character> characters, int letterIndex) {
         final char letter = characters.get(letterIndex);
         Enumeration<TreeNode> enumeration = node.children();
-        boolean foundChild = false;
         while (enumeration.hasMoreElements()) {
             DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) enumeration.nextElement();
             if ((String.valueOf(letter)).equals(currentNode.toString())) {
-                foundChild = true;
-
                 if (letterIndex < characters.size() - 1) {
-                    searchNode(currentNode, characters, letterIndex + 1);
+                    return searchNode(currentNode, characters, letterIndex + 1);
+                } else {
+                    return true;
                 }
             }
         }
-        if(foundChild){
-            // set false if the word is longer than nodes in tree
-            }
-        return foundChild;
+        return false;
     }
 }
