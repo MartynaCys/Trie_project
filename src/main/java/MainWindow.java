@@ -2,7 +2,10 @@ import main_window.components.FileChooser;
 import main_window.components.TreeComponent;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MainWindow extends JFrame {
 
@@ -24,13 +27,17 @@ public class MainWindow extends JFrame {
         JTextArea addTextArea = new JTextArea("Add some text to the tree", 3, 10);
         JButton addTextBtn = new JButton("Add");
         addTextBtn.addActionListener(e -> {
-            System.out.println("adding");
+            String[] list = addTextArea.getText().split(" ");
+            List<String> words = new ArrayList<>();
+            words.addAll(Arrays.asList(list));
+            treeComponent.addText(words);
         });
 
         JTextField searchWordText = new JTextField("Search the word");
         JButton searchWordBtn = new JButton("Search");
         searchWordBtn.addActionListener(e -> {
-            System.out.println("searching");
+            boolean answer = treeComponent.searchWord(searchWordText.getText());
+            System.out.println("answer = " + answer);
         });
 
         JPanel panel = new JPanel();

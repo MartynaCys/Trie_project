@@ -63,12 +63,32 @@ public class TreeComponent {
 
             if (letterIndex < characters.size() - 1) {
                 addNode(newNode, characters, letterIndex + 1);
-                // dodac ostatni node jako koniec slowa, jako else lub kazda mozliwa wariacja przy przeszukiwaniu
             }
         }
     }
 
-    public void searchWord() {
+    public boolean searchWord(String word) {
+        List<Character> characters = FileOperation.splitInCharacters(word);
+        return searchNode(this.root, characters, 0);
+    }
 
+    public boolean searchNode(DefaultMutableTreeNode node, List<Character> characters, int letterIndex) {
+        final char letter = characters.get(letterIndex);
+        Enumeration<TreeNode> enumeration = node.children();
+        boolean foundChild = false;
+        while (enumeration.hasMoreElements()) {
+            DefaultMutableTreeNode currentNode = (DefaultMutableTreeNode) enumeration.nextElement();
+            if ((String.valueOf(letter)).equals(currentNode.toString())) {
+                foundChild = true;
+
+                if (letterIndex < characters.size() - 1) {
+                    searchNode(currentNode, characters, letterIndex + 1);
+                }
+            }
+        }
+        if(foundChild){
+            // set false if the word is longer than nodes in tree
+            }
+        return foundChild;
     }
 }
